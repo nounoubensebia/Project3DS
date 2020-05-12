@@ -89,6 +89,11 @@ Sequence Sequence::operator*(Sequence sequence) {
 
 }
 
+Sequence::Sequence(std::deque<bool> bits)
+{
+    this->bits = bits;
+}
+
 std::deque<bool> Sequence::getRep(int n, int size) {
     std::deque<bool> dq;
     for (int i = 0;i<size;i++)
@@ -98,6 +103,26 @@ std::deque<bool> Sequence::getRep(int n, int size) {
         n=n/2;
     }
     return dq;
+}
+
+Sequence Sequence::permutation (std::vector<int> vect) {
+    //std::deque<bool> dq;
+    Sequence sequence = Sequence(vect.size());
+    for (int i=0;i<vect.size();i++)
+    {
+        sequence[i] = this->bits[vect[i]];
+    }
+    return sequence;
+}
+
+Sequence Sequence::sous_sequence(int i, int j) {
+
+    Sequence sequence = Sequence(j-i+1);
+    for (int k=i;k<j;k++)
+    {
+        sequence[k-i] = this->bits[k];
+    }
+    return sequence;
 }
 
 

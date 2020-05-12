@@ -2,6 +2,49 @@
 #include "Sequence.h"
 
 
+void f5()
+{
+    Sequence sequence = Sequence(5);
+    sequence = 18;
+    Sequence sequence1 = sequence.sous_sequence(1,3);
+    for (int i=0; i < sequence1.size(); i++)
+    {
+        std::cout << sequence1[i] ;
+    }
+}
+
+void f4()
+{
+    Sequence sequence = Sequence(5);
+    //std::cout << sequence.size();
+    sequence = 18;
+
+    for (int i=0; i < sequence.size(); i++)
+    {
+        std::cout << sequence[i] ;
+    }
+
+    std::cout << std::endl;
+
+    std::vector<int> vector = std::vector<int>();
+    vector.push_back(4);
+    vector.push_back(2);
+    vector.push_back(1);
+    vector.push_back(0);
+    vector.push_back(3);
+    //std::cout << vector[1];
+    //vector[1]=2;
+    //vector[2]=0;
+
+    Sequence sequence1 = sequence.permutation(vector);
+
+    for (int i=0; i < sequence1.size(); i++)
+    {
+        std::cout << sequence1[i] ;
+    }
+
+}
+
 void f3()
 {
     Sequence sequence1 = Sequence(5);
@@ -48,7 +91,7 @@ void f2()
 
 int main() {
 
-    f3();
+    f5();
 
     return 0;
 }
