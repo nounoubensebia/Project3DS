@@ -68,23 +68,27 @@ void Sequence::decalage(int n) {
 }
 
 Sequence Sequence::operator*(Sequence sequence) {
+
+    Sequence sequence1 = Sequence(sequence.size());
+    for (int i=0;i<sequence.size();i++)
+    {
+        if (this->bits[i]!=sequence.bits[i])
+        {
+            sequence1[i] = true;
+        } else
+        {
+            sequence1[i] = false;
+        }
+    }
+    return sequence1;
+
+
     if (this->size()!=sequence.size())
     {
         return NULL;
     } else
     {
-        Sequence sequence1 = Sequence(sequence.size());
-        for (int i=0;i<sequence.size();i++)
-        {
-            if (this->bits[i]!=sequence.bits[i])
-            {
-                sequence1[i] = true;
-            } else
-            {
-                sequence1[i] = false;
-            }
-        }
-        return sequence1;
+
     }
 
 }

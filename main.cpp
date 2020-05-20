@@ -1,6 +1,79 @@
 #include <iostream>
 #include "Sequence.h"
+#include "SequenceD.h"
 
+
+void f9()
+{
+    Sequence s1 = Sequence(4);
+    Sequence s2 = Sequence(4);
+    s1 = 5;
+    s2 = 9;
+    SequenceD<8> sequenceD = SequenceD<8>(s1,s2);
+    std::cout<<sequenceD.right().size();
+}
+
+void f8()
+{
+    Sequence s1 = Sequence(4);
+    Sequence s2 = Sequence(4);
+    s1 = 5;
+    s2 = 9;
+    SequenceD<8> sequenceD1 = SequenceD<8>(s1,s2);
+    for (int i=0;i<sequenceD1.size();i++)
+    {
+        std::cout << sequenceD1[i] ;
+        //std::cout<<i;
+    }
+    std::cout<<std::endl;
+    SequenceD<8> sequenceD2 = SequenceD<8>(s2,s1);
+    for (int i=0;i<sequenceD2.size();i++)
+    {
+        std::cout << sequenceD2[i] ;
+        //std::cout<<i;
+    }
+    SequenceD<8> sequenceD = sequenceD1*sequenceD2;
+    //std::cout << sequenceD[1] ;
+    std::cout<<std::endl;
+    for (int i=0;i<sequenceD.size();i++)
+    {
+        std::cout << sequenceD[i] ;
+        //std::cout<<i;
+    }
+}
+
+void f7()
+{
+    Sequence s1 = Sequence(4);
+    Sequence s2 = Sequence(4);
+    s1 = 5;
+    s2 = 9;
+    SequenceD<8> sequenceD = SequenceD<8>(s1,s2);
+
+    for (int i=0; i < sequenceD.sequence.size(); i++)
+    {
+        std::cout << sequenceD.sequence[i] ;
+    }
+
+    std::cout << std::endl;
+
+    std::cout << sequenceD[7];
+    sequenceD.decalage(2);
+    std::cout << std::endl;
+    for (int i=0; i < sequenceD.sequence.size(); i++)
+    {
+        std::cout << sequenceD.sequence[i] ;
+    }
+    //std::cout<<sequenceD.sequence.size();
+}
+
+void f6()
+{
+    SequenceD<12> sequenceD;
+    sequenceD = SequenceD<12>();
+    //std::cout<<sequenceD.size();
+    //std::cout<<sequenceD.sequence.size();
+}
 
 void f5()
 {
@@ -91,7 +164,7 @@ void f2()
 
 int main() {
 
-    f5();
+    f9();
 
     return 0;
 }
