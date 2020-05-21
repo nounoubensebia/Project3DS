@@ -11,7 +11,7 @@
 class Sequence {
 private:
     std::deque<bool> bits;
-    std::deque<bool> getRep (int n,int size);
+    std::deque<bool> getRep (unsigned int n,int size);
 public:
     Sequence(int size = 4);
     Sequence(std::list<Sequence> l);
@@ -20,7 +20,7 @@ public:
     virtual bool& operator[](int i);
 
     virtual bool operator()(int i);
-    void operator=(int i);
+    void operator=(unsigned int i);
 
     virtual void decalage(int n);
     Sequence operator*(Sequence sequence);

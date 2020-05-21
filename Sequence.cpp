@@ -52,7 +52,7 @@ bool Sequence::operator()(int i) {
     return bits[i];
 }
 
-void Sequence::operator= (int n)
+void Sequence::operator= (unsigned int n)
 {
     bits = getRep(n,bits.size());
 }
@@ -98,7 +98,7 @@ Sequence::Sequence(std::deque<bool> bits)
     this->bits = bits;
 }
 
-std::deque<bool> Sequence::getRep(int n, int size) {
+std::deque<bool> Sequence::getRep(unsigned int n, int size) {
     std::deque<bool> dq;
     for (int i = 0;i<size;i++)
     {
@@ -122,7 +122,7 @@ Sequence Sequence::permutation (std::vector<int> vect) {
 Sequence Sequence::sous_sequence(int i, int j) {
 
     Sequence sequence = Sequence(j-i+1);
-    for (int k=i;k<j;k++)
+    for (int k=i;k<=j;k++)
     {
         sequence[k-i] = this->bits[k];
     }

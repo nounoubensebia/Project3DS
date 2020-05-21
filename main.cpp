@@ -1,7 +1,46 @@
 #include <iostream>
 #include "Sequence.h"
 #include "SequenceD.h"
+#include "Permutation.h"
+#include "KeyGen.h"
 
+
+void f11()
+{
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 322197369;
+    s2 = 2612846577;
+    SequenceD<64> sequenceD = SequenceD<64>(s1,s2);
+    KeyGen keyGen = KeyGen(sequenceD);
+    SequenceD<48> key = keyGen.next();
+    for (int i=0;i<key.size();i++)
+    {
+        std::cout << key[i] ;
+    }
+}
+
+void f10()
+{
+    Permutation<64,56> permutation = Permutation<64,56>();
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 322197369;
+    s2 = 2612846577;
+    SequenceD<64> sequenceD = SequenceD<64>(s1,s2);
+    for (int i=0;i<sequenceD.size();i++)
+    {
+        std::cout << sequenceD[i] ;
+    }
+    std::cout << std::endl;
+    SequenceD<56> sequenceD1;
+    std::vector<int> vect = KeyGen::getPc1();
+    sequenceD1 = permutation(sequenceD,vect);
+    for (int i=0;i<sequenceD1.size();i++)
+    {
+        std::cout << sequenceD1[i] ;
+    }
+}
 
 void f9()
 {
@@ -164,7 +203,7 @@ void f2()
 
 int main() {
 
-    f9();
+    f11();
 
     return 0;
 }
