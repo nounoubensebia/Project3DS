@@ -14,6 +14,7 @@ class Sbox {
         std::vector<std::vector<Sequence>> sequences;
     public:
         Sbox(std::vector<std::vector<Sequence>> sequences);
+        Sbox(std::vector<std::vector<int>> sequences);
         ~Sbox();
         Sbox(const Sbox &sbox);
         Sbox &operator=(const Sbox &sbox);

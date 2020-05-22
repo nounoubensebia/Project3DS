@@ -5,17 +5,54 @@
 #include "KeyGen.h"
 #include "Utils.h"
 #include "Sbox.h"
+#include "S_fonction.h"
+
+
+void f13()
+{
+    S_fonction sFonction = S_fonction(Utils::getSboxes());
+    std::list<Sequence> list;
+    Sequence sequence = Sequence(6);
+    sequence = 24;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 17;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 30;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 58;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 33;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 38;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 20;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 39;
+    list.push_back(sequence);
+    Sequence resp = sFonction(Sequence(list));
+    for (int i=0;i<resp.size();i++)
+    {
+        std::cout<<resp[i];
+    }
+}
 
 void f12()
 {
-    Sbox sbox = Sbox(Utils::getSboxes(0));
+    /*Sbox sbox = Sbox(Utils::getSboxes());
     Sequence seq = Sequence(6);
     seq = 27;
     Sequence sequence = sbox(seq);
     for (int i=0;i<sequence.size();i++)
     {
         std::cout<<sequence[i];
-    }
+    }*/
 }
 
 
@@ -222,7 +259,7 @@ void f2()
 
 int main() {
 
-    f12();
+    f13();
 
     return 0;
 }

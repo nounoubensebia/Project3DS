@@ -12,7 +12,7 @@
 class Utils {
     public:
         static int binToDec(std::vector<bool> bits);
-        static std::vector<std::vector<Sequence>> getSboxes(int i);
+        static std::vector<std::vector<std::vector<int>>> getSboxes();
 };
 
 
