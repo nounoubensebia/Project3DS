@@ -3,6 +3,20 @@
 #include "SequenceD.h"
 #include "Permutation.h"
 #include "KeyGen.h"
+#include "Utils.h"
+#include "Sbox.h"
+
+void f12()
+{
+    Sbox sbox = Sbox(Utils::getSboxes(0));
+    Sequence seq = Sequence(6);
+    seq = 27;
+    Sequence sequence = sbox(seq);
+    for (int i=0;i<sequence.size();i++)
+    {
+        std::cout<<sequence[i];
+    }
+}
 
 
 void f11()
@@ -208,7 +222,7 @@ void f2()
 
 int main() {
 
-    f11();
+    f12();
 
     return 0;
 }
