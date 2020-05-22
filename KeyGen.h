@@ -19,6 +19,7 @@ class KeyGen {
         KeyGen(SequenceD<64> sequenceD);
         SequenceD<48> next();
         static std::vector<int> getPc1();
+        static std::vector<int> getSchedule();
 
     std::vector<int> getPc2();
 };

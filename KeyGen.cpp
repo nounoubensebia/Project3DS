@@ -35,9 +35,15 @@ SequenceD<48> KeyGen::next() {
     {
         Permutation<64,56> permutation = Permutation<64,56>();
         CD = permutation(key,getPc1());
-        CD.decalage(1);
+
     }
+    CD.decalage(getSchedule()[iteration]);
     Permutation<56,48> permutation1 = Permutation<56,48>();
     SequenceD<48> sequenceD = permutation1(CD,getPc2());
+    iteration++;
     return sequenceD;
+}
+
+std::vector<int> KeyGen::getSchedule() {
+    return {1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
 }

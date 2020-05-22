@@ -13,10 +13,15 @@ void f11()
     s2 = 2612846577;
     SequenceD<64> sequenceD = SequenceD<64>(s1,s2);
     KeyGen keyGen = KeyGen(sequenceD);
-    SequenceD<48> key = keyGen.next();
-    for (int i=0;i<key.size();i++)
+
+    for (int i=0;i<16;i++)
     {
-        std::cout << key[i] ;
+        SequenceD<48> key = keyGen.next();
+        for (int j=0;j<key.size();j++)
+        {
+            std::cout << key[j] ;
+        }
+        std::cout<<std::endl;
     }
 }
 
