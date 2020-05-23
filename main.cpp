@@ -8,7 +8,33 @@
 #include "S_fonction.h"
 #include "F.h"
 #include "DES.h"
+#include "DESinv.h"
 
+
+void f17()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197361;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846572;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    s1 = 190887431;
+    s2 = 2309737967;
+    SequenceD<64> toEncode = SequenceD<64> (s1,s2);
+    DES des = DES(key);
+    SequenceD<64> encrypted = des(toEncode);
+    for (int i=0;i<toEncode.size();i++)
+    {
+        std::cout<<toEncode[i];
+    }
+    DESinv deSinv = DESinv(key);
+    SequenceD<64> decrypted = deSinv(encrypted);
+    std::cout<<std::endl;
+    for (int i=0;i< decrypted.size();i++)
+    {
+        std::cout<<decrypted[i];
+    }
+}
 
 void f16()
 {
@@ -320,7 +346,7 @@ void f2()
 
 int main() {
 
-    f15();
+    f17();
 
     return 0;
 }

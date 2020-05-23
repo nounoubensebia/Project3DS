@@ -9,6 +9,7 @@
 #include "Sequence.h"
 #include "SequenceD.h"
 #include <list>
+#include <iostream>
 
 template <int te,int ts> class Permutation {
 
@@ -19,12 +20,12 @@ template <int te,int ts> class Permutation {
 
 template<int te, int ts>
 SequenceD<ts> Permutation<te, ts>::operator()(SequenceD<te> sequenceD, std::vector<int> vect) {
+
     std::list<Sequence> sequences;
     sequences.push_back(sequenceD.left());
     sequences.push_back(sequenceD.right());
     Sequence sequence = Sequence(sequences);
     Sequence permuted = sequence.permutation(vect);
-    //std::cout<<permuted.size();
     Sequence permutedLeft = permuted.sous_sequence(0,ts/2-1);
     Sequence permutedRight = permuted.sous_sequence(ts/2,ts-1);
     return SequenceD<ts>(permutedLeft,permutedRight);
