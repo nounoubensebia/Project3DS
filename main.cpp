@@ -7,6 +7,46 @@
 #include "Sbox.h"
 #include "S_fonction.h"
 #include "F.h"
+#include "DES.h"
+
+
+void f16()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    KeyGen keyGen = KeyGen(key);
+    for (int i=0;i<16;i++)
+    {
+        SequenceD<48> sequenceD = keyGen.next();
+        for (int j=0;j<sequenceD.size();j++)
+        {
+            std::cout<< sequenceD[j];
+        }
+        std::cout<< std::endl;
+    }
+}
+
+void f15()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    s1 = 19088743;
+    s2 = 2309737967;
+    SequenceD<64> toEncode = SequenceD<64> (s1,s2);
+    DES des = DES(key);
+    SequenceD<64> result = des(toEncode);
+
+    for (int i=0;i< result.size();i++)
+    {
+        std::cout<<result[i];
+    }
+}
 
 
 void f14()
@@ -280,7 +320,7 @@ void f2()
 
 int main() {
 
-    f14();
+    f15();
 
     return 0;
 }

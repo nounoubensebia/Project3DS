@@ -15,6 +15,8 @@ class Utils {
         static std::vector<std::vector<std::vector<int>>> getSboxes();
         static std::vector<int> getEPermutationTable();
         static std::vector<int> getPPermutationTable();
+        static std::vector<int> getIPPermutationTable();
+        static std::vector<int> getIPInverseTable();
 };
 
 
