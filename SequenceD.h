@@ -6,6 +6,10 @@
 #define PROJECT3DS_SEQUENCED_H
 
 
+#include <iostream>
+using namespace std;
+#include <bitset>
+#include <sstream>
 #include "Sequence.h"
 
 template <int s> class SequenceD : private Sequence  {
@@ -20,9 +24,14 @@ template <int s> class SequenceD : private Sequence  {
         bool operator()(int i) override ;
         SequenceD operator*(SequenceD sequenceD) ;
         int size() override ;
-        void decalage(int s) override ;
+        void decalage(int k) override ;
         Sequence right();
         Sequence left();
+        friend void operator<<(SequenceD<64>& seq, ostream& mycout);
+        friend void operator>>(istream& mycin, SequenceD<64>& seq);
+        void write (SequenceD<64>& seq, ostream& mycout);
+        void read (istream& mycin, SequenceD<64>& seq);
+
 };
 
 template<int s>SequenceD<s>::SequenceD():Sequence(s/2) {
@@ -63,7 +72,7 @@ int SequenceD<s>::size() {
 }
 
 template<int s>
-void SequenceD<s>::decalage(int s) {
+void SequenceD<s>::decalage(int k) {
 
     Sequence::decalage(s);
     sequence.decalage(s);
@@ -89,6 +98,81 @@ Sequence SequenceD<s>::left() {
     return *this;
 }
 
+inline void operator<<(SequenceD<64> &seq, ostream &mycout) {
+    string data;
+    string out;
+    for (int i=0;i<seq.size();i++)
+    {
+        data += seq[i] ? "1" : "0";
+    }
+    stringstream sstream(data);
+    while(sstream.good())
+    {
+        bitset<8> bits;
+        sstream >> bits;
+        char c = char(bits.to_ulong());
+        out += c;
+    }
+    mycout << out;
+}
+
+inline void operator>>(istream &mycin, SequenceD<64> &seq) {
+    string s;
+    std::deque<bool> bitdq;
+    bool b;
+    string bits;
+    mycin >> s;
+
+    for (int i = 0; i < s.size(); i += 1) {
+        //cout << bitset<8>(s[i]) << " ";
+        bits = std::bitset<8>(s[i]).to_string();
+        for(int j = 0; j < 8 ; j +=1 ){
+            if (bits[j] == '1'){
+                b = true;
+            }else{
+                b = false;
+            }
+            bitdq.push_back(b);
+        }
+    }
+    for (int i = 0; i < bitdq.size(); i += 1) {
+        seq[i]=bitdq[i];
+        cout << seq[i];
+    }
+
+}
+
+template<int s>
+void SequenceD<s>::write(SequenceD<64> &seq, ostream &mycout) {
+    mycout << "Les bits de la sequence sont \n";
+    string data;
+    for (int i=0;i<seq.size();i++)
+    {
+        data += seq[i] ? "1" : "0";
+    }
+    mycout << data;
+}
+
+template<int s>
+void SequenceD<s>::read(istream &mycin, SequenceD<64> &seq) {
+    string data;
+    for (int i=0;i<seq.size();i++)
+    {
+        data += seq[i] ? "1" : "0";
+    }
+    mycin >> data;
+}
+
+template<typename t>
+void affichage (t ob) {
+    int i;
+    cout << "la taille de l'objet est " << endl;
+    cout << ob.size() << endl;
+    cout << "Donner la position " << endl;
+    cin >> i;
+    cout << "le bit est " << endl;
+    cout << ob(i) << endl;
+}
 
 
 #endif //PROJECT3DS_SEQUENCED_H
