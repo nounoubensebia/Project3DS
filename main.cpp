@@ -9,7 +9,37 @@
 #include "F.h"
 #include "DES.h"
 #include "DESinv.h"
+#include "Crypt.h"
+#include "Decrypt.h"
 
+
+void f18()
+{
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 1;
+    s2 = 2;
+    SequenceD<64> message = SequenceD<64> (s1,s2);
+    s1 = 322197361;
+    s2 = 2612846572;
+    SequenceD<64> key1 = SequenceD<64>(s1,s2);
+    s2 = 322397361;
+    s1 = 2612846572;
+    SequenceD<64> key2 = SequenceD<64>(s1,s2);
+    Crypt crypt = Crypt(key1,key2);
+    SequenceD<64> crypted = crypt.cryptBinary(message);
+    for (int i=0;i<message.size();i++)
+    {
+        std::cout<<message[i];
+    }
+    std::cout<<std::endl;
+    Decrypt decrypt = Decrypt(key1,key2);
+    SequenceD<64> deCrypted = decrypt.decryptBinary(crypted);
+    for (int i=0;i<deCrypted.size();i++)
+    {
+        std::cout<<deCrypted[i];
+    }
+}
 
 void f17()
 {
@@ -346,7 +376,7 @@ void f2()
 
 int main() {
 
-    f17();
+    f18();
 
     return 0;
 }
