@@ -6,6 +6,27 @@
 #include "Utils.h"
 #include "Sbox.h"
 #include "S_fonction.h"
+#include "F.h"
+
+
+void f14()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    Sequence toEncode = Sequence(32);
+    toEncode = 4037734570;
+    F f = F(key);
+    Sequence result = f(toEncode);
+
+    for (int i=0;i< result.size();i++)
+    {
+        std::cout<<result[i];
+    }
+
+}
 
 
 void f13()
@@ -259,7 +280,7 @@ void f2()
 
 int main() {
 
-    f13();
+    f14();
 
     return 0;
 }

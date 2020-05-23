@@ -17,7 +17,10 @@ class S_fonction {
         S_fonction(std::vector<std::vector<std::vector<int>>> sBoxes);
         ~S_fonction();
         S_fonction(const S_fonction &s_fonction);
-        S_fonction &operator=(const S_fonction &s_fonction);
+
+    S_fonction();
+
+    S_fonction &operator=(const S_fonction &s_fonction);
         Sequence operator()(Sequence sequence);
 };
 

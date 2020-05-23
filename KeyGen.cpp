@@ -47,3 +47,5 @@ SequenceD<48> KeyGen::next() {
 std::vector<int> KeyGen::getSchedule() {
     return {1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
 }
+
+KeyGen::KeyGen() {}

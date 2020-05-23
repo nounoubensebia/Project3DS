@@ -13,6 +13,8 @@ class Utils {
     public:
         static int binToDec(std::vector<bool> bits);
         static std::vector<std::vector<std::vector<int>>> getSboxes();
+        static std::vector<int> getEPermutationTable();
+        static std::vector<int> getPPermutationTable();
 };
 
 

@@ -79,3 +79,7 @@ Sequence S_fonction::operator()(Sequence sequence) {
     }
     return sequenceSortie;
 }
+
+S_fonction::S_fonction() {
+
+}
