@@ -14,6 +14,7 @@ private:
     public:
         Crypt(SequenceD<64> key1,SequenceD<64> key2);
         SequenceD<64> cryptBinary(SequenceD<64> toCrypt);
+        void operator() (string s1,string s2);
 };
 
 

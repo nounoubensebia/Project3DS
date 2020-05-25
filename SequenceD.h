@@ -31,7 +31,7 @@ template <int s> class SequenceD : private Sequence  {
         friend void operator>>(istream& mycin, SequenceD<64>& seq);
         void write (SequenceD<64>& seq, ostream& mycout);
         void read (istream& mycin, SequenceD<64>& seq);
-
+        template<typename t> void affichage (t ob);
 };
 
 template<int s>SequenceD<s>::SequenceD():Sequence(s/2) {
@@ -74,8 +74,8 @@ int SequenceD<s>::size() {
 template<int s>
 void SequenceD<s>::decalage(int k) {
 
-    Sequence::decalage(s);
-    sequence.decalage(s);
+    Sequence::decalage(k);
+    sequence.decalage(k);
 }
 
 template<int s>
@@ -106,13 +106,16 @@ inline void operator<<(SequenceD<64> &seq, ostream &mycout) {
         data += seq[i] ? "1" : "0";
     }
     stringstream sstream(data);
+    char c;
     while(sstream.good())
     {
         bitset<8> bits;
         sstream >> bits;
-        char c = char(bits.to_ulong());
-        out += c;
+        c = char(bits.to_ulong());
+        //cout << c;
+        out+=c;
     }
+    out.pop_back();
     mycout << out;
 }
 
@@ -137,7 +140,7 @@ inline void operator>>(istream &mycin, SequenceD<64> &seq) {
     }
     for (int i = 0; i < bitdq.size(); i += 1) {
         seq[i]=bitdq[i];
-        cout << seq[i];
+        //cout << seq[i];
     }
 
 }
@@ -163,8 +166,9 @@ void SequenceD<s>::read(istream &mycin, SequenceD<64> &seq) {
     mycin >> data;
 }
 
+template<int s>
 template<typename t>
-void affichage (t ob) {
+void SequenceD<s>::affichage(t ob) {
     int i;
     cout << "la taille de l'objet est " << endl;
     cout << ob.size() << endl;
@@ -172,6 +176,11 @@ void affichage (t ob) {
     cin >> i;
     cout << "le bit est " << endl;
     cout << ob(i) << endl;
+}
+
+template<typename t>
+void affichage (t ob) {
+
 }
 
 

@@ -1,6 +1,256 @@
 #include <iostream>
 #include "Sequence.h"
 #include "SequenceD.h"
+#include "Utils.h"
+#include "S_fonction.h"
+#include "F.h"
+#include "DES.h"
+#include "DESinv.h"
+#include "Decrypt.h"
+#include "Crypt.h"
+#include "Permutation.h"
+#include <fstream>
+
+
+void f19()
+{
+    string inFile = "test.txt";
+    string cryptedFile = "crypted.txt";
+    string decryptedFile = "decrypted.txt";
+
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+
+    SequenceD<64> key1 = SequenceD<64>(s1,s2);
+    s1 = 0;
+    s2 = 0;
+    SequenceD<64> key2 = SequenceD<64>(s2,s1);
+
+    Crypt crypt = Crypt(key1,key2);
+    crypt(inFile,cryptedFile);
+    Decrypt decrypt = Decrypt(key1,key2);
+    decrypt(cryptedFile, decryptedFile);
+}
+
+void f20()
+{
+    string inFile = "test.txt";
+    string outFile = "out.txt";
+
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+
+    SequenceD<64> key1 = SequenceD<64>(s1,s2);
+    s1 = 0;
+    s2 = 0;
+    SequenceD<64> key2 = SequenceD<64>(s2,s1);
+
+    Crypt crypt = Crypt(key1,key2);
+    crypt(inFile,outFile);
+}
+
+
+void f18()
+{
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 1;
+    s2 = 2;
+    SequenceD<64> message = SequenceD<64> (s1,s2);
+    s1 = 322197361;
+    s2 = 2612846572;
+    SequenceD<64> key1 = SequenceD<64>(s1,s2);
+    s2 = 322397361;
+    s1 = 2612846572;
+    SequenceD<64> key2 = SequenceD<64>(s1,s2);
+    Crypt crypt = Crypt(key1,key2);
+    SequenceD<64> crypted = crypt.cryptBinary(message);
+    for (int i=0;i<message.size();i++)
+    {
+        std::cout<<message[i];
+    }
+    std::cout<<std::endl;
+    Decrypt decrypt = Decrypt(key1,key2);
+    SequenceD<64> deCrypted = decrypt.decryptBinary(crypted);
+    for (int i=0;i<deCrypted.size();i++)
+    {
+        std::cout<<deCrypted[i];
+    }
+}
+
+void f17()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197361;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846572;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    s1 = 190887431;
+    s2 = 2309737967;
+    SequenceD<64> toEncode = SequenceD<64> (s1,s2);
+    DES des = DES(key);
+    SequenceD<64> encrypted = des(toEncode);
+    for (int i=0;i<toEncode.size();i++)
+    {
+        std::cout<<toEncode[i];
+    }
+    DESinv deSinv = DESinv(key);
+    SequenceD<64> decrypted = deSinv(encrypted);
+    std::cout<<std::endl;
+    for (int i=0;i< decrypted.size();i++)
+    {
+        std::cout<<decrypted[i];
+    }
+}
+
+void f16()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    KeyGen keyGen = KeyGen(key);
+    for (int i=0;i<16;i++)
+    {
+        SequenceD<48> sequenceD = keyGen.next();
+        for (int j=0;j<sequenceD.size();j++)
+        {
+            std::cout<< sequenceD[j];
+        }
+        std::cout<< std::endl;
+    }
+}
+
+void f15()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    s1 = 19088743;
+    s2 = 2309737967;
+    SequenceD<64> toEncode = SequenceD<64> (s1,s2);
+    DES des = DES(key);
+    SequenceD<64> result = des(toEncode);
+
+    for (int i=0;i< result.size();i++)
+    {
+        std::cout<<result[i];
+    }
+}
+
+
+void f14()
+{
+    Sequence s1 = Sequence(32);
+    s1 = 322197369;
+    Sequence s2 = Sequence(32);
+    s2 = 2612846577;
+    SequenceD<64> key = SequenceD<64>(s1,s2);
+    Sequence toEncode = Sequence(32);
+    toEncode = 4037734570;
+    F f = F(key);
+    Sequence result = f(toEncode);
+
+    for (int i=0;i< result.size();i++)
+    {
+        std::cout<<result[i];
+    }
+
+}
+
+
+void f13()
+{
+    S_fonction sFonction = S_fonction(Utils::getSboxes());
+    std::list<Sequence> list;
+    Sequence sequence = Sequence(6);
+    sequence = 24;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 17;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 30;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 58;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 33;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 38;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 20;
+    list.push_back(sequence);
+    sequence = Sequence(6);
+    sequence = 39;
+    list.push_back(sequence);
+    Sequence resp = sFonction(Sequence(list));
+    for (int i=0;i<resp.size();i++)
+    {
+        std::cout<<resp[i];
+    }
+}
+
+void f12()
+{
+    /*Sbox sbox = Sbox(Utils::getSboxes());
+    Sequence seq = Sequence(6);
+    seq = 27;
+    Sequence sequence = sbox(seq);
+    for (int i=0;i<sequence.size();i++)
+    {
+        std::cout<<sequence[i];
+    }*/
+}
+
+
+void f11()
+{
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 322197369;
+    s2 = 2612846577;
+    SequenceD<64> sequenceD = SequenceD<64>(s1,s2);
+    KeyGen keyGen = KeyGen(sequenceD);
+
+    for (int i=0;i<16;i++)
+    {
+        SequenceD<48> key = keyGen.next();
+        for (int j=0;j<key.size();j++)
+        {
+            std::cout << key[j] ;
+        }
+        std::cout<<std::endl;
+    }
+}
+
+void f10()
+{
+    Permutation<64,56> permutation = Permutation<64,56>();
+    Sequence s1 = Sequence(32);
+    Sequence s2 = Sequence(32);
+    s1 = 322197369;
+    s2 = 2612846577;
+    SequenceD<64> sequenceD = SequenceD<64>(s1,s2);
+    for (int i=0;i<sequenceD.size();i++)
+    {
+        std::cout << sequenceD[i] ;
+    }
+    std::cout << std::endl;
+    SequenceD<56> sequenceD1;
+    std::vector<int> vect = KeyGen::getPc1();
+    sequenceD1 = permutation(sequenceD,vect);
+    for (int i=0;i<sequenceD1.size();i++)
+    {
+        std::cout << sequenceD1[i] ;
+    }
+}
 
 
 void f9()
@@ -164,7 +414,7 @@ void f2()
 
 int main() {
 
-    f9();
+    f19();
 
     return 0;
 }
