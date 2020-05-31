@@ -131,3 +131,49 @@ std::vector<int> Utils::getIPInverseTable() {
     }
     return IP;
 }
+
+unsigned int Utils::getDecFromHexString(std::string hexVal, bool leftPart) {
+    int len,min;
+    if (leftPart)
+    {
+        len = hexVal.length();
+        min = hexVal.length()/2;
+    } else
+    {
+        len = hexVal.length()/2;
+        min = 0;
+    }
+
+    // Initializing base value to 1, i.e 16^0
+    unsigned int base = 1;
+
+    unsigned int dec_val = 0;
+
+    // Extracting characters as digits from last character
+    for (int i=len-1; i>=min; i--)
+    {
+        // if character lies in '0'-'9', converting
+        // it to integral 0-9 by subtracting 48 from
+        // ASCII value.
+        if (hexVal[i]>='0' && hexVal[i]<='9')
+        {
+            dec_val += (hexVal[i] - 48)*base;
+
+            // incrementing base by power
+            base = base * 16;
+        }
+
+            // if character lies in 'A'-'F' , converting
+            // it to integral 10 - 15 by subtracting 55
+            // from ASCII value
+        else if (hexVal[i]>='A' && hexVal[i]<='F')
+        {
+            dec_val += (hexVal[i] - 55)*base;
+
+            // incrementing base by power
+            base = base*16;
+        }
+    }
+
+    return dec_val;
+}

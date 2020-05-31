@@ -9,6 +9,9 @@
 #include <vector>
 #include "Sequence.h"
 
+
+// Classe utilisée pour la génération des différantes tables de l'algorithme
+// Cette classe contient aussi quelques fonctions utiles utilisés dans le programme
 class Utils {
     public:
         static int binToDec(std::vector<bool> bits);
@@ -17,6 +20,7 @@ class Utils {
         static std::vector<int> getPPermutationTable();
         static std::vector<int> getIPPermutationTable();
         static std::vector<int> getIPInverseTable();
+        static unsigned  int getDecFromHexString(std::string hex, bool leftPart);
 };
 
 
