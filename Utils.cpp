@@ -172,6 +172,10 @@ unsigned int Utils::getDecFromHexString(std::string hexVal, bool leftPart) {
 
             // incrementing base by power
             base = base*16;
+        } else
+        {
+            std::cout<<"valeurs errones";
+            exit(0);
         }
     }
 

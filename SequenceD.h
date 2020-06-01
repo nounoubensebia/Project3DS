@@ -11,6 +11,7 @@ using namespace std;
 #include <bitset>
 #include <sstream>
 #include "Sequence.h"
+#include "Utils.h"
 
 template <int s> class SequenceD : private Sequence  {
 
@@ -99,50 +100,55 @@ Sequence SequenceD<s>::left() {
 }
 
 inline void operator<<(SequenceD<64> &seq, ostream &mycout) {
-    string data;
-    string out;
+    std::vector<bool> dqa;
+    int j=1;
     for (int i=0;i<seq.size();i++)
     {
-        data += seq[i] ? "1" : "0";
+        dqa.push_back(seq[i]);
+        if (j==8)
+        {
+            int c = Utils::binToDec(dqa);
+            if (c>127)
+            {
+                c-=256;
+            }
+            char ch = (char)c;
+            mycout.put(ch);
+            j=1;
+            dqa.clear();
+        } else
+        {
+            j++;
+        }
     }
-    stringstream sstream(data);
-    char c;
-    while(sstream.good())
-    {
-        bitset<8> bits;
-        sstream >> bits;
-        c = char(bits.to_ulong());
-        //cout << c;
-        out+=c;
-    }
-    out.pop_back();
-    mycout << out;
 }
 
 inline void operator>>(istream &mycin, SequenceD<64> &seq) {
-    string s;
-    std::deque<bool> bitdq;
-    bool b;
-    string bits;
-    mycin >> s;
-
-    for (int i = 0; i < s.size(); i += 1) {
-        //cout << bitset<8>(s[i]) << " ";
-        bits = std::bitset<8>(s[i]).to_string();
-        for(int j = 0; j < 8 ; j +=1 ){
-            if (bits[j] == '1'){
-                b = true;
-            }else{
-                b = false;
+    std::list<Sequence> list;
+    Sequence sequence1;
+    Sequence sequence2;
+    char ch;
+    int i=0;
+    while (mycin.get(ch))
+        {
+            Sequence sequence = Sequence(8);
+            int c = (int)ch;
+            if (c<0)
+            {
+                c+=256;
             }
-            bitdq.push_back(b);
-        }
-    }
-    for (int i = 0; i < bitdq.size(); i += 1) {
-        seq[i]=bitdq[i];
-        //cout << seq[i];
-    }
+            sequence = c;
+            list.push_back(sequence);
+            if (i==3)
+            {
+                sequence1 = Sequence(list);
 
+                list.clear();
+            }
+            i++;
+        }
+    sequence2 = Sequence(list);
+    seq = SequenceD<64>(sequence1,sequence2);
 }
 
 template<int s>
@@ -169,19 +175,18 @@ void SequenceD<s>::read(istream &mycin, SequenceD<64> &seq) {
 template<int s>
 template<typename t>
 void SequenceD<s>::affichage(t ob) {
-    int i;
-    cout << "la taille de l'objet est " << endl;
-    cout << ob.size() << endl;
-    cout << "Donner la position " << endl;
-    cin >> i;
-    cout << "le bit est " << endl;
-    cout << ob(i) << endl;
+    cout << "la taille de l'objet est : ";
+    cout <<ob.size();
+    cout << std::endl;
+    cout <<"elements de l'objet : ";
+    cout << std::endl;
+    for (int i=0;i<ob.size();i++)
+    {
+        std::cout<<ob(i);
+    }
+    cout << std::endl;
 }
 
-template<typename t>
-void affichage (t ob) {
-
-}
 
 
 #endif //PROJECT3DS_SEQUENCED_H

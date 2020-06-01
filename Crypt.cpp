@@ -28,4 +28,5 @@ void Crypt::operator()(string s1, string s2) {
     SequenceD<64> crypted = cryptBinary(toCrypt);
     ofstream out(s2,ios::out);
     crypted<<out;
+    out.close();
 }

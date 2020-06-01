@@ -23,10 +23,14 @@ SequenceD<64> Decrypt::decryptBinary(SequenceD<64> toDeCrypt) {
 }
 
 void Decrypt::operator()(string s1, string s2) {
-    ifstream in(s1,ios::in);
+    ifstream in(s1,ios::binary);
     SequenceD<64> toDecrypt;
     in >> toDecrypt;
+    //std::cout<<toDecrypt.left().size();
+    //std::cout<<std::endl;
+    //std::cout<<toDecrypt.right().size();
     SequenceD<64> decrypted = decryptBinary(toDecrypt);
     ofstream out(s2,ios::out);
     decrypted << out;
+    out.close();
 }
